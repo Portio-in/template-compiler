@@ -1,0 +1,9 @@
+{
+    "multi_page_elements": [
+        {
+            "json_key": "projects",
+            "file_name": "project.html",
+            "specific_record_key": "specific_project"
+        }
+    ]
+}
