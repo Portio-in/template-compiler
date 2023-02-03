@@ -2,14 +2,17 @@ from dotenv import load_dotenv
 import os
 from compiler import TemplateCompiler
 import pika
+import json
 
 load_dotenv()
 
 # Create a callback function
 def callback(ch, method, properties, body):
     try:
-        domain_name = body.decode("utf-8")
-        compiler = TemplateCompiler("dopefolio", domain_name)
+        json_body = json.loads(body)
+        domain_name = json_body["domain_name"]
+        template_code = json_body["template_code"]
+        compiler = TemplateCompiler(template_code, domain_name)
         compiler.configAWS(os.environ.get("ACCESS_KEY_ID"), os.environ.get("ACCESS_KEY_SECRET"))
         compiler.run()
         compiler.storeTemplateToS3()
