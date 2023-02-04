@@ -1,0 +1,179 @@
+<!-- HELLO
+-
+DevFolio is a minimal, clean, lightweight and fully responsive template for Devlopers!
+Created by Anil Seervi.
+-
+GitHub repo: https://github.com/AnilSeervi/DevFolio
+README: https://github.com/AnilSeervi/DevFolio/blob/master/README.md
+-
+Have fun creating your portfolio on this template!!! -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ name }}</title>
+
+    <!-- link tags -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Portio-in/cdn@main/devfolio/css/main.css" />
+    <script src="https://cdn.jsdelivr.net/gh/Portio-in/cdn@main/devfolio/js/scrollreveal.min.js"></script>
+    <script defer type="text/javascript" src="https://cdn.jsdelivr.net/gh/Portio-in/cdn@main/devfolio/js/scrollveal.js"></script>
+
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <div id="hero">
+      <section class="container">
+        <h1 class="hero-title">
+          Hi, my name is <span class="text-color-main name">{{ name }}</span>
+          <br />
+          {{ tagline }}
+        </h1>
+        <p class="hero-cta">
+          <a class="cta-btn cta-btn--hero" href="#about">Get in touch</a>
+        </p>
+      </section>
+      <a href="#about" class="scroll-down-link" aria-label="scroll-down">
+        <div class="scroll-down"></div
+      ></a>
+    </div>
+    <!-- /END Hero Section -->
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        <div class="row about-wrapper">
+          <div class="about-wrapper__image">
+            <img
+              class="img-fluid"
+              src="{{ avatar }}"
+              alt="Profile Image"
+            />
+          </div>
+          <div class="about-wrapper__info">
+            <p class="about-wrapper__info-text">
+                {{ description }}
+            </p>
+            <span class="about-wrapper__cta">
+                {% if resumeLink %}
+                    <a href="{{ resumeLink }}" class="cta-btn cta-btn--resume">View Resume</a>
+                {% endif %}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /END About Section -->
+
+    <!--Projects Section-->
+    <section id="projects">
+      <div class="container">
+        <div class="project-wrapper">
+          <h2 class="section-title dark-blue-text">Projects</h2>
+
+          <!-- Each .row is a project -->
+          {% for project in projects %}
+            <article class="row">
+                <div class="project-wrapper__text">
+                <h3 class="project-wrapper__text-title">{{ project.title }}</h3>
+                <p class="project-wrapper__text-info">
+                    {{ project.description }}
+                </p>
+                <div class="project-wrapper__text-btns">
+                    {% if project.liveLink %}
+                        <a
+                            href="{{ project.liveLink }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="cta-btn cta-btn--hero cta-btn--projects"
+                        >See Live</a
+                        >
+                    {% endif %}
+
+                    {% if project.codeLink %}
+                        <a href="{{ project.codeLink }}" target="_blank" class="cta-btn text-color-main">Source Code</a>
+                    {% else %}
+                        {% if project.readMoreLink %}
+                            <a href="{{ project.readMoreLink }}" target="_blank" class="cta-btn text-color-main">Read More</a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                </div>
+
+                <div class="project-wrapper__image">
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                    <div class="thumbnail rounded">
+                    <img
+                        src="{{ project.coverImage }}"
+                        class="img-fluid"
+                        alt="Project Image"
+                    />
+                    </div>
+                </a>
+                </div>
+            </article>
+            <!-- /END Project -->
+          {% endfor %}
+
+        </div>
+      </div>
+    </section>
+    <!-- End Projects Section -->
+
+    <!-- Contact Section -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-wrapper">
+          <p class="contact-wrapper__text">Reach out to me via mail</p>
+          <a href="mailto:{{ email }}" class="cta-btn cta-btn--resume">Mail Me</a>
+        </div>
+      </div>
+    </section>
+    <!-- END Contact Section -->
+
+    <!-- Footer Section -->
+    <footer class="footer">
+      <div class="container">
+        <a href="#hero" class="back-to-top" aria-label="go back to top" style="text-decoration: none;color: white;">
+          <i class="fa fa-angle-up fa-2x" aria-hidden="true"></i>
+        </a>
+        <div class="social-links">
+            {% for socialLink in socialLinks %}
+                <a
+                    href="{{ socialLink.link }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="{{ socialLink.type.type }}"
+                >
+                    <i class="{{ socialLink.type.icon }}"></i>
+                </a>
+            {% endfor %}
+        </div>
+        <hr />
+        <p class="footer__text">
+          &copy; <span id="year"></span> - Template by
+          <a
+            href="https://github.com/AnilSeervi"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Anil Seervi</a> - Powered by <a href="https://portio.in">Portio</a>
+          . <br />Made with &hearts;
+        </p>
+      </div>
+    </footer>
+    <!-- END Footer Section -->
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <script src="./javascript/vanilla-tilt.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Portio-in/cdn@main/devfolio/js/valtilt.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Portio-in/cdn@main/devfolio/js/vanilla-tilt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

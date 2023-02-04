@@ -10,7 +10,8 @@ from io import BytesIO
 from dotenv import load_dotenv
 
 template_path_store = {
-    "dopefolio": "dopefolio"
+    "dopefolio": "dopefolio",
+    "devfolio": "devfolio",
 }
 
 
@@ -101,7 +102,10 @@ class TemplateCompiler:
     def storeTemplates(self):
         # random_id = str(uuid4())
         random_id = "tanmoy"
-        shutil.rmtree(random_id)
+        try:
+            shutil.rmtree(random_id)
+        except:
+            pass
         os.mkdir(random_id)
         for template_file, html in self.generated_templates.items():
             path = os.path.join(random_id, template_file)
@@ -119,3 +123,9 @@ class TemplateCompiler:
         for template_file, html in self.generated_templates.items():
             s3.upload_fileobj(BytesIO(html.encode("utf-8")), "portio-dev", os.path.join(self.domain_name, template_file))
 
+
+if __name__ == "__main__":
+    load_dotenv()
+    template_compiler = TemplateCompiler("devfolio", "tanmoy.portio.in")
+    template_compiler.run()
+    template_compiler.storeTemplates()
