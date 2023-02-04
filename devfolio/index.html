@@ -105,7 +105,7 @@ Have fun creating your portfolio on this template!!! -->
                 </div>
 
                 <div class="project-wrapper__image">
-                <a href="#" target="_blank" rel="noopener noreferrer">
+                <a href="{% if project.liveLink %}{{ project.liveLink }}{% elif project.codeLink %}{{ project.codeLink }}{% elif project.readMoreLink %}{{ project.readMoreLink }}{% else %}#{% endif %}" target="_blank" rel="noopener noreferrer">
                     <div class="thumbnail rounded">
                     <img
                         src="{{ project.coverImage }}"
