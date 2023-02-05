@@ -83,13 +83,39 @@
                   <h2 class="font-xs font-light tracking-widest text-sm text-gray-600 leading-normal uppercase">Projects</h2>
                 </div>
                 <div class="flex-none text-lg text-gray-600 font-light md:flex-1 md:pl-20">
-                    <!-- SINLGLE PROJECT -->
-                    <div class="mb-6">
-                        <h3 class="font-semibold text-gray-900 pb-1 hover:underline hover:text-black">
-                          Project 1
-                        </h3>
-                        <p class="text-md text-gray-600 font-light">Hemlo my baby</p>
-                    </div>
+                    {% for project in projects %}
+                        <!-- SINLGLE PROJECT -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-900 pb-1 hover:text-black">
+                                {{ project.title }}
+                            </h3>
+                            <p class="text-md text-gray-600 font-light">{{ project.description }}</p>
+                            <p class="text-md text-gray-600 font-light">{{ datetimeStringTodate(project.startingDate) }} ~ {{ datetimeStringTodate(project.endingDate) }}</p>
+                            <ul class="uppercase tracking-wider">
+                                {% if project.liveLink %}
+                                    <li class="inline list-none pr-4">
+                                        <a class="inline-block py-2 font-semibold text-xs text-gray-600 hover:text-black" target="_blank" href="{{ project.liveLink }}">
+                                            Live Link
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if project.codeLink %}
+                                    <li class="inline list-none pr-4">
+                                        <a class="inline-block py-2 font-semibold text-xs text-gray-600 hover:text-black" target="_blank" href="{{ project.codeLink }}">
+                                            Source Code
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if project.readMoreLink %}
+                                    <li class="inline list-none pr-4">
+                                        <a class="inline-block py-2 font-semibold text-xs text-gray-600 hover:text-black" target="_blank" href="{{ project.readMoreLink }}">
+                                            Read More
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             {% endif %}
