@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Portio-in/cdn@main/resume/css/style.css">
+</head>
+
+<body>
+    <!-- Layout START -->
+    <div class="relative">
+        <svg class="hidden fixed transform right-0 top-5 z-0 xl:block" width="404" height="784" fill="none"
+            viewBox="0 0 404 784">
+            <defs>
+                <pattern id="5d0dd344-b041-4d26-bec4-8d33ea57ec9b" x="0" y="0" width="20" height="20"
+                    patternUnits="userSpaceOnUse">
+                    <rect x="0" y="0" width="4" height="4" className="text-gray-200" fill="#edf2f7" />
+                </pattern>
+            </defs>
+            <rect width="404" height="784" fill="url(#5d0dd344-b041-4d26-bec4-8d33ea57ec9b)" />
+        </svg>
+        <div class="p-8 relative max-w-screen-xl xs:p-20">
+            <!-- Header START -->
+            <div class="block mb-6 md:flex">
+                <div class="max-w-[150px]">
+                <Link to="/">
+                    <img class="rounded-full transform transition-all duration-150 hover:scale-105" src="{{ avatar }}" />
+                </Link>
+                </div>
+                <div class="flex-none pt-6 md:pt-1 md:flex-1 md:pl-20">
+                <h1 class="text-5xl text-gray-900 font-bold leading-tight hover:text-black">
+                    <Link to="/">{{ name }}</Link>
+                </h1>
+                <p class="text-gray-600">{{ tagline }}</p>
+                <ul class="mt-6 uppercase tracking-wider">
+                    {% for socialLink in socialLinks %}
+                        <li class="inline list-none pr-4">
+                            <a class="inline-block py-2 font-semibold text-xs text-gray-600 hover:text-black" target="_blank" href="{{ socialLink.link }}">
+                                {{ socialLink.type.type }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                </div>
+            </div>
+            <!-- ./END -->
+
+            <!-- ABOUT ME START -->
+            {% if description %}
+                <div class="block pt-12 md:flex">
+                    <div class="pb-6 md:w-full md:max-w-[150px] md:p-0">
+                    <h2 class="font-xs font-light tracking-widest text-sm text-gray-600 leading-normal uppercase">About Me</h2>
+                    </div>
+                    <div class="flex-none text-lg text-gray-600 font-light md:flex-1 md:pl-20">
+                        <p class="text-md text-gray-600 font-light">{{ description }}</p>
+                    </div>
+                </div>
+            {% endif %}
+            <!-- ./END -->
+
+            <!-- RESUME START -->
+            {% if resumeLink %}
+                <div class="block pt-12 md:flex">
+                    <div class="pb-6 md:w-full md:max-w-[150px] md:p-0">
+                    <h2 class="font-xs font-light tracking-widest text-sm text-gray-600 leading-normal uppercase">Resume</h2>
+                    </div>
+                    <div class="flex-none text-lg text-gray-600 font-light md:flex-1 md:pl-20">
+                        <a class="text-md text-blue-600 font-light" href="{{ resumeLink }}">Check out my resume</a>
+                    </div>
+                </div>
+            {% endif %}
+            <!-- ./END -->
+
+
+
+            <!-- PROJECT START  -->
+            {% if projects %}
+            <div class="block pt-12 md:flex">
+                <div class="pb-6 md:w-full md:max-w-[150px] md:p-0">
+                  <h2 class="font-xs font-light tracking-widest text-sm text-gray-600 leading-normal uppercase">Projects</h2>
+                </div>
+                <div class="flex-none text-lg text-gray-600 font-light md:flex-1 md:pl-20">
+                    <!-- SINLGLE PROJECT -->
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-900 pb-1 hover:underline hover:text-black">
+                          Project 1
+                        </h3>
+                        <p class="text-md text-gray-600 font-light">Hemlo my baby</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!-- ./END -->
+
+            <!-- EXPERIENCE START -->
+            {% if experiences %}
+                <div class="block pt-12 md:flex">
+                    <div class="pb-6 md:w-full md:max-w-[150px] md:p-0">
+                    <h2 class="font-xs font-light tracking-widest text-sm text-gray-600 leading-normal uppercase">Working Experience</h2>
+                    </div>
+                    <div class="flex-none text-lg text-gray-600 font-light md:flex-1 md:pl-20">
+                        <!-- SINLGLE PROJECT -->
+                        {% for experience in experiences %}
+                            <div class="mb-6">
+                                <h3 class="font-semibold text-gray-900 pb-1">
+                                {{ experience.role }} at {{ experience.organization }}
+                                </h3>
+                                <p class="text-md text-gray-600 font-light">{{ datetimeStringTodate(experience.startingDate) }} ~ {{ datetimeStringTodate(experience.endingDate) }}</p>
+                                <ul style="list-style-type: '- '">
+                                    {% for accomplishment in experience.accomplishments %}
+                                        <li class="text-md text-gray-600 font-light">{{ accomplishment }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            <!-- ./END -->
+
+            <!-- CERTIFICATIONS START -->
+            {% if certificates %}
+                <div class="block pt-12 md:flex">
+                    <div class="pb-6 md:w-full md:max-w-[150px] md:p-0">
+                    <h2 class="font-xs font-light tracking-widest text-sm text-gray-600 leading-normal uppercase">certificates</h2>
+                    </div>
+                    <div class="flex-none text-lg text-gray-600 font-light md:flex-1 md:pl-20">
+                        {% for certificate in certificates %}
+                            <div class="mb-6">
+                                <h3 class="font-semibold text-gray-900 pb-1">
+                                {{ certificate.title }} by {{ certificate.providedBy }}
+                                {% if certificate.link %}
+                                    <a class="text-md text-blue-600 font-light" href="{{ certificate.link }}">&nbsp;[LINK]</a>
+                                {% endif %}
+                                </h3>
+                                {% if certificate.completedOn %}
+                                    <p class="text-md text-gray-600 font-light">{{ datetimeStringTodate(certificate.completedOn) }}</p>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            <!-- ./END -->
+
+            <!-- ACHIEVEMENTS START -->
+            {% if achievements %}
+            <div class="block pt-12 md:flex">
+                <div class="pb-6 md:w-full md:max-w-[150px] md:p-0">
+                <h2 class="font-xs font-light tracking-widest text-sm text-gray-600 leading-normal uppercase">Achiievements</h2>
+                </div>
+                <div class="flex-none text-lg text-gray-600 font-light md:flex-1 md:pl-20">
+                    {% for achievement in achievements %}
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-900 pb-1">
+                                {% if achievement.referenceLink %}
+                                    <a class="text-md text-blue-600 font-light" href="{{ achievement.referenceLink }}">{{ achievement.title }}</a>
+                                {% else %}
+                                    {{ achievement.title }} 
+                                {% endif %}
+                            </h3>
+                            <p>{{ achievement.description }}</p>
+                            {% if achievement.date %}
+                                <p class="text-md text-gray-600 font-light">{{ datetimeStringTodate(achievement.date) }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            <!-- ./END -->
+
+            <!-- CONTACT -->
+            <div class="block pt-12 md:flex">
+                <div class="pb-6 md:w-full md:max-w-[150px] md:p-0">
+                <h2 class="font-xs font-light tracking-widest text-sm text-gray-600 leading-normal uppercase">Contact  Me</h2>
+                </div>
+                <div class="flex-none text-lg text-gray-600 font-light md:flex-1 md:pl-20">
+                    <div class="mb-6">
+                        <h3 class="font-semibold text-gray-900 pb-1">Mail Me</h3>
+                        <p>{{ email }}</p>
+                    </div>
+                    {% if phone %}
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-900 pb-1">Call Me</h3>
+                            <p>{{ phone }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- ./END -->
+        </div>
+    </div>
+    <!-- ./END  -->
+
+
+</body>
+
+</html>

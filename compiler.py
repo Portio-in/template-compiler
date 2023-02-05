@@ -8,10 +8,16 @@ from datetime import datetime
 import boto3
 from io import BytesIO
 from dotenv import load_dotenv
+from helper import datetimeStringTodate
 
 template_path_store = {
     "dopefolio": "dopefolio",
     "devfolio": "devfolio",
+    "resume": "resume"
+}
+
+template_helpers = {
+    "datetimeStringTodate": datetimeStringTodate
 }
 
 
@@ -75,7 +81,7 @@ class TemplateCompiler:
         # Compile normal template files
         for template_file in self.template_files:
             template = self.env.get_template(template_file)
-            html = template.render(**self.data)
+            html = template.render(**self.data, **template_helpers)
             html = htmlmin.minify(html, remove_empty_space=True)
             self.generated_templates[template_file] = html
         # Compile multi page template files
@@ -87,7 +93,7 @@ class TemplateCompiler:
             folder_name = template_file.split(".")[0]
             template = self.env.get_template(template_file)
             for index, specific_record in enumerate(self.data[json_key]):
-                html = template.render(**self.data, **{specific_record_key: specific_record})
+                html = template.render(**self.data, **{specific_record_key: specific_record}, **template_helpers)
                 html = htmlmin.minify(html, remove_empty_space=True)
                 self.generated_templates[f"{folder_name}/{index}.html"] = html
 
@@ -126,6 +132,6 @@ class TemplateCompiler:
 
 if __name__ == "__main__":
     load_dotenv()
-    template_compiler = TemplateCompiler("devfolio", "tanmoy.portio.in")
+    template_compiler = TemplateCompiler("resume", "tanmoy.portio.in")
     template_compiler.run()
     template_compiler.storeTemplates()
