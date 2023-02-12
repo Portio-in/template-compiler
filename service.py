@@ -13,7 +13,7 @@ def callback(ch, method, properties, body):
         domain_name = json_body["domain_name"]
         template_code = json_body["template_code"]
         compiler = TemplateCompiler(template_code, domain_name)
-        compiler.configAWS(os.environ.get("ACCESS_KEY_ID"), os.environ.get("ACCESS_KEY_SECRET"))
+        compiler.configAWS(os.environ.get("AWS_ACCESS_KEY_ID"), os.environ.get("AWS_ACCESS_KEY_SECRET"))
         compiler.run()
         compiler.storeTemplateToS3(os.environ.get("AWS_BUCKET_NAME"))
     except Exception as e:
