@@ -9,6 +9,7 @@ import boto3
 from io import BytesIO
 from dotenv import load_dotenv
 from helper import datetimeStringTodate
+from pymemcache.client import base
 
 template_path_store = {
     "dopefolio": "dopefolio",
@@ -104,7 +105,13 @@ class TemplateCompiler:
             return True, json_response
         except:
             return False, {}
-
+        
+    def purgeCache(self):
+        client = base.Client(('localhost', 11211))
+        for template_file, _ in self.generated_templates.items():
+            path = os.path.join(self.domain_name, template_file)
+            client.delete(path)
+            
     def storeTemplates(self):
         # random_id = str(uuid4())
         random_id = "tanmoy"

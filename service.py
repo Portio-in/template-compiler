@@ -16,6 +16,7 @@ def callback(ch, method, properties, body):
         compiler.configAWS(os.environ.get("AWS_ACCESS_KEY_ID"), os.environ.get("AWS_ACCESS_KEY_SECRET"))
         compiler.run()
         compiler.storeTemplateToS3(os.environ.get("AWS_BUCKET_NAME"))
+        compiler.purgeCache()
     except Exception as e:
         print(e)
         pass
