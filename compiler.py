@@ -119,7 +119,7 @@ class TemplateCompiler:
             with open(path, "w") as f:
                 f.write(html)
 
-    def storeTemplateToS3(self):
+    def storeTemplateToS3(self, buckerName):
 
         s3 = boto3.client(
             's3',
@@ -127,7 +127,7 @@ class TemplateCompiler:
             aws_secret_access_key=self.aws_access_secret
         )
         for template_file, html in self.generated_templates.items():
-            s3.upload_fileobj(BytesIO(html.encode("utf-8")), "portio-dev", os.path.join(self.domain_name, template_file))
+            s3.upload_fileobj(BytesIO(html.encode("utf-8")), buckerName, os.path.join(self.domain_name, template_file))
 
 
 if __name__ == "__main__":

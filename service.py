@@ -15,7 +15,7 @@ def callback(ch, method, properties, body):
         compiler = TemplateCompiler(template_code, domain_name)
         compiler.configAWS(os.environ.get("ACCESS_KEY_ID"), os.environ.get("ACCESS_KEY_SECRET"))
         compiler.run()
-        compiler.storeTemplateToS3()
+        compiler.storeTemplateToS3(os.environ.get("AWS_BUCKET_NAME"))
     except Exception as e:
         print(e)
         pass
