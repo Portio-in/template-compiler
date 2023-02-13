@@ -74,7 +74,31 @@
             {% endif %}
             <!-- ./END -->
 
+            <!-- EDUCATION START -->
+            {% if educations %}
+            <div class="block pt-12 md:flex">
+                <div class="pb-6 md:w-full md:max-w-[150px] md:p-0">
+                  <h2 class="font-xs font-light tracking-widest text-sm text-gray-600 leading-normal uppercase">Projects</h2>
+                </div>
+                <div class="flex-none text-lg text-gray-600 font-light md:flex-1 md:pl-20">
+                    {% for education in educations %}
+                        <!-- SINLGLE education -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold text-gray-900 pb-1 hover:text-black">
+                                {{ education.courseName }}
+                            </h3>
+                            <p class="text-md text-gray-600 font-light">{{ education.institutionName }}</p>
+                            {% if education.score %}
+                                <p class="text-md text-gray-600 font-light">{{ education.score }}</p>
+                            {% endif %}
+                            <p class="text-md text-gray-600 font-light">{{ datetimeStringTodate(education.startingDate) }} ~ {{ datetimeStringTodate(education.endingDate) }}</p>
 
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            <!-- ./END -->
 
             <!-- PROJECT START  -->
             {% if projects %}
